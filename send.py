@@ -1,21 +1,23 @@
 
 import http.server
 import urllib.parse
-import twilio.rest
-import os
-import twilio.rest
-import redis
+from twilio.rest import Client  # Add this import
 from redisUtil import RedisHandler
 from huelight import hueConnect
-import colorsys
+import os
 import dotenv
-
 dotenv.load_dotenv()
 
-TWILIO_PHONE = '+18777165114'
-token = os.environ.get('AUTH_TOKEN')
-account_sid = os.environ.get('ACCOUNT_SID')
-twilio_client = twilio.rest.Client(token, account_sid)
+AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_PHONE = os.getenv('TWILIO_PHONE')
+
+
+if not AUTH_TOKEN or not ACCOUNT_SID or not TWILIO_PHONE:
+    raise ValueError(
+        "Twilio credentials not properly set in environment variables.")
+
+twilio_client = Client(ACCOUNT_SID, AUTH_TOKEN)
 redis_handler = RedisHandler()
 
 
@@ -34,10 +36,6 @@ def receive_message(from_number, message_text):
         response_message = f"Light successfully changed to {message_text}!"
         send_message(from_number, response_message)
     # if color equals "options" then send message
-    elif message_text.lower() == "options":
-        response_message = f"Please choose from the following colors: red, orange, yellow, green, cyan, blue, purple, pink"
-        send_message(from_number, response_message)
-    # if color not in database then send message
     else:
         response_message = f"The color {message_text} is not in the database."
         send_message(from_number, response_message)
