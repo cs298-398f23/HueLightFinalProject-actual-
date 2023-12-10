@@ -1,7 +1,6 @@
 HUE LIGHT
 
 DESCRIPTION
-
 The Hue Light is controlled via SMS. Our python program receives the SMS message from Twilio, Checks a redis database to verify whether or not the specified color is in the database. If it is, it then interacts with the light and then uses requests to send an SMS message back to the user. When a color is used to change the light it is recorded and then displayed on a webpage that shows color statistics.
 
 SET UP
