@@ -10,7 +10,7 @@ def go():
     with open("data.csv", "r") as colors:
         for line in colors:
             line = line.strip()
-            name, number = line.split(",")
+            name, number, count = line.split(",")
             number = int(number)
             r.hset("colors", name, number)
 

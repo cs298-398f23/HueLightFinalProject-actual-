@@ -1,11 +1,12 @@
 
-import http.server
-import urllib.parse
-from twilio.rest import Client  # Add this import
-from redisUtil import RedisHandler
-from huelight import hueConnect
-import os
 import dotenv
+import os
+from huelight import hueConnect
+from redisUtil import RedisHandler
+from twilio.rest import Client  # Add this import
+import urllib.parse
+import http.server
+
 dotenv.load_dotenv()
 
 AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
@@ -36,6 +37,9 @@ def receive_message(from_number, message_text):
         response_message = f"Light successfully changed to {message_text}!"
         send_message(from_number, response_message)
     # if color equals "options" then send message
+    elif message_text.lower() == "options":
+        response_message = f"Please choose from the following colors: {redis_handler.redis_client.hkeys('colors')}"
+        send_message(from_number, response_message)
     else:
         response_message = f"The color {message_text} is not in the database."
         send_message(from_number, response_message)
@@ -50,6 +54,10 @@ def find_colors(text):
     else:
         color_exists = redis_handler.redis_client.exists(key)
         return color_exists.decode('utf-8') if color_exists else None
+
+
+def get_colors():
+    return redis_handler.redis_client.hkeys("colors")
 
 
 def find_value(text):

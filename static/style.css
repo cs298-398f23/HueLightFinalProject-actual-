@@ -1,0 +1,14 @@
+/* take the bullets off the list and change them to numbers */
+*{
+  background-color: aquamarine;
+}
+
+li {
+  list-style-type: decimal;
+  text-align: left;
+}
+
+h1 {
+  text-align: center;
+  font-size: 60px;
+}

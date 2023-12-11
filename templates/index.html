@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Twilio Hue Colors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Twilio Hue Colors</h1>
+    <p>Colors in the Redis database:</p>
+    {% if colors %}
+        <ul>
+            {% for color in colors %}
+                <li class="color-item">{{ color }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No colors found in the Redis database.</p>
+    {% endif %}
+</body>
+</html>
+
