@@ -10,9 +10,11 @@ def go():
     with open("data.csv", "r") as colors:
         for line in colors:
             line = line.strip()
-            name, number, count = line.split(",")
-            number = int(number)
-            r.hset("colors", name, number)
+            name, rgb, count = line.split(",")
+            rbg = int(rgb)
+            count = int(count)
+            r.hset("colors", name, rgb, count)
+            print(f"Added {name} with {rgb} and {count} to redis database.")
 
 
 if __name__ == '__main__':

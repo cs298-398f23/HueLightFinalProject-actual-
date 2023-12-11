@@ -7,6 +7,7 @@ from twilio.rest import Client  # Add this import
 import urllib.parse
 import http.server
 
+
 dotenv.load_dotenv()
 
 AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
@@ -36,9 +37,10 @@ def receive_message(from_number, message_text):
         hueConnect(find_value(message_text))
         response_message = f"Light successfully changed to {message_text}!"
         send_message(from_number, response_message)
+        set_current_color(message_text)
     # if color equals "options" then send message
     elif message_text.lower() == "options":
-        response_message = f"Please choose from the following colors: {redis_handler.redis_client.hkeys('colors')}"
+        response_message = f"Please choose from the following colors: {redis_handler.redis_client.hkeys('colors', 'colors')}"
         send_message(from_number, response_message)
     else:
         response_message = f"The color {message_text} is not in the database."

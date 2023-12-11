@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import redis
 from redisUtil import RedisHandler
+
 # make flask server that displays all the colors in redis database
 # make flask server that displays all the colors in redis database
 
@@ -18,6 +19,7 @@ redis_client = redis.StrictRedis.from_url(app.config['REDIS_URL'])
 @app.route('/')
 def index():
     try:
+
         colors = [color.decode('utf-8')
                   for color in redis_client.hkeys('colors')]
         print("Colors retrieved from Redis:", colors)

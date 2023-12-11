@@ -1,14 +1,23 @@
 /* take the bullets off the list and change them to numbers */
 *{
-  background-color: aquamarine;
+  background-color: wheat;
 }
 
 li {
-  list-style-type: decimal;
-  text-align: left;
+  list-style-type: none;
+  text-align: center;
+  display: inline;
+  font-size: 25px;
+  padding: 10px;
 }
 
 h1 {
   text-align: center;
   font-size: 60px;
 }
+
+p{
+  text-align: center;
+  font-size: 30px;
+}
+
